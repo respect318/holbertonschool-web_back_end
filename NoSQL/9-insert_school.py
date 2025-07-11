@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""
-Change school topics
-"""
-from pymongo import MongoClient
-def update_topics(mongo_collection, name, topics):
+def insert_school(mongo_collection, **kwargs):
     """
-    Function that changes all topics of a school document based on the name:
+    Inserts a new document into the given MongoDB collection.
+
+    Args:
+        mongo_collection: The pymongo collection object.
+        **kwargs: The document fields to insert.
+
+    Returns:
+        The _id of the newly inserted document.
     """
-    result = mongo_collection.update_many(
-        {"name": name},
-        {"$set": {"topics": topics}}
-    )
-    return result
+    result = mongo_collection.insert_one(kwargs)
+    return result.inserted_id
